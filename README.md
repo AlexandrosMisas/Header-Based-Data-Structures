@@ -60,9 +60,9 @@ Let's take a look at an interesting benchmark comparing our map implementation w
 ```c
 /* test.cpp */
 #include <iostream>
-#include <random>
 #include <cstring>
 #include <cstdio>
+#include <random>
 #include <boost/unordered/unordered_flat_map.hpp>
 
 #include "map.h"
@@ -241,24 +241,19 @@ void test_strings(uint64_t N) {
         str_keys[i] = strdup(buffer);
     }
 
-    struct times t1 = benchmark_str_stl_map(N, str_keys);
-    struct times t2 = benchmark_str_impl_map(N, str_keys);
-    struct times t3 = benchmark_str_boost_map(N, str_keys); 
+    struct times t1 = benchmark_str_impl_map(N, str_keys);
+    struct times t2 = benchmark_str_boost_map(N, str_keys); 
     printf("Benchmark run with %lu C strings elements as keys\n", N);
-    printf("STL unordered map:\n"
-           "  1) Insertion Time(s): %.6f\n"
-           "  2) Lookup Time(s)   : %.6f\n\n",
-           t1.insert_time, t1.lookup_time); 
     
     printf("Custom made hash based map:\n"
            "  1) Insertion Time(s): %.6f\n"
            "  2) Lookup Time(s)   : %.6f\n\n",
-           t2.insert_time, t2.lookup_time);
+           t1.insert_time, t1.lookup_time);
            
     printf("Boost unordered_flat_map:\n"
            "  1) Insertion Time(s): %.6f\n"
            "  2) Lookup Time(s)   : %.6f\n\n",
-           t3.insert_time, t3.lookup_time); 
+           t2.insert_time, t2.lookup_time); 
 
 
     for (uint64_t i = 0UL; i < N; ++i)
@@ -270,9 +265,8 @@ void test_strings(uint64_t N) {
 
 void test_ints(uint64_t N) {
     int64_t *keys = generate_random_keys(N);
-    struct times t1 = benchmark_int_stl_map(N, keys);
-    struct times t2 = benchmark_int_impl_map(N, keys);
-    struct times t3 = benchmark_int_boost_map(N, keys); 
+    struct times t1 = benchmark_int_impl_map(N, keys);
+    struct times t2 = benchmark_int_boost_map(N, keys); 
     printf("Benchmark run with %lu integer elements as keys\n", N);
     printf("STL unordered map:\n"
            "  1) Insertion Time(s): %.6f\n"
@@ -282,12 +276,12 @@ void test_ints(uint64_t N) {
     printf("Custom made hash based map:\n"
            "  1) Insertion Time(s): %.6f\n"
            "  2) Lookup Time(s)   : %.6f\n\n",
-           t2.insert_time, t2.lookup_time);
+           t1.insert_time, t1.lookup_time);
            
     printf("Boost unordered_flat_map:\n"
            "  1) Insertion Time(s): %.6f\n"
            "  2) Lookup Time(s)   : %.6f\n\n",
-           t3.insert_time, t3.lookup_time); 
+           t2.insert_time, t2.lookup_time); 
 
     free(keys);
 }
