@@ -184,7 +184,6 @@ void test_strings(uint64_t N) {
     struct times t1 = benchmark_str_impl_map(N, str_keys);
     struct times t2 = benchmark_str_boost_map(N, str_keys); 
     printf("Benchmark run with %lu C strings elements as keys\n", N);
-    
     printf("Custom made hash based map:\n"
            "  1) Insertion Time(s): %.6f\n"
            "  2) Lookup Time(s)   : %.6f\n\n",
@@ -208,11 +207,6 @@ void test_ints(uint64_t N) {
     struct times t1 = benchmark_int_impl_map(N, keys);
     struct times t2 = benchmark_int_boost_map(N, keys); 
     printf("Benchmark run with %lu integer elements as keys\n", N);
-    printf("STL unordered map:\n"
-           "  1) Insertion Time(s): %.6f\n"
-           "  2) Lookup Time(s)   : %.6f\n\n",
-           t1.insert_time, t1.lookup_time); 
-    
     printf("Custom made hash based map:\n"
            "  1) Insertion Time(s): %.6f\n"
            "  2) Lookup Time(s)   : %.6f\n\n",
